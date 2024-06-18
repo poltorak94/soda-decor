@@ -1,0 +1,100 @@
+$(document).ready(function () {
+    Fancybox.bind("[data-fancybox]");
+    $(".input-tel").mask("+7 (999) 999-99-99");
+
+    $(window).on("scroll", function () {
+        let scroll = $(this).scrollTop();
+        if (scroll > 50) {
+            $(".header").addClass("header--scroll");
+        } else {
+            $(".header").removeClass("header--scroll");
+        }
+    });
+
+    let trust = new Swiper(".trust__slider", {
+        slidesPerView: 3,
+        spaceBetween: 18,
+        loop: true,
+        navigation: {
+            nextEl: ".trust__slider-next",
+            prevEl: ".trust__slider-prev",
+        },
+    });
+
+    let reviews = new Swiper(".reviews__slider", {
+        slidesPerView: 4,
+        spaceBetween: 25,
+        loop: true,
+        navigation: {
+            nextEl: ".reviews__next",
+            prevEl: ".reviews__prev",
+        },
+    });
+
+    $(".slider").each(function (i) {
+        i++;
+        var i = new Swiper(this, {
+            spaceBetween: 30,
+            slidesPerView: 4,
+            loop: true,
+            navigation: {
+                nextEl: $(this).parent().find(".slider__next")[0],
+                prevEl: $(this).parent().find(".slider__prev")[0],
+            },
+            breakpoints: {
+                320: {},
+                640: {},
+                1000: {},
+                1366: {},
+                1920: {},
+            },
+        });
+    });
+
+    // $(".header__burger").on("click", function (e) {
+    //     e.preventDefault();
+    //     $(this).toggleClass("header__burger--active");
+
+    //     if ($(window).scrollTop() < 50) {
+    //         $(".header").addClass("header--scroll");
+    //     }
+
+    //     $(".mob-nav").slideToggle();
+    // });
+
+    // $(".header__nav-item, .header__logo, .footer__nav-item").click(function (
+    //     e
+    // ) {
+    //     e.preventDefault();
+    //     $(".mob-nav").slideUp();
+    //     $(".header__burger").removeClass("header__burger--active");
+    //     let headerH = $(".header").height();
+    //     elementClick = $(this).attr("href");
+    //     destination = $(elementClick).offset().top;
+
+    //     $("body, html").animate(
+    //         {
+    //             scrollTop: destination - headerH,
+    //         },
+    //         800
+    //     );
+    // });
+
+    // $(".modal-form").on("submit", function (e) {
+    //     e.preventDefault();
+    //     let data = $(this).serialize();
+    //     let form = $(this);
+    //     let parent = form.closest(".modal");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "email.php",
+    //         data: data,
+    //         success: function () {
+    //             parent.addClass("modal--success");
+    //         },
+    //         error: function () {
+    //             alert("Ошибка сервера, попробуйте еще раз");
+    //         },
+    //     });
+    // });
+});
