@@ -1,5 +1,6 @@
 $(document).ready(function () {
     Fancybox.bind("[data-fancybox]");
+
     $(".input-tel").mask("+7 (999) 999-99-99");
 
     $(window).on("scroll", function () {
@@ -101,22 +102,24 @@ $(document).ready(function () {
         // $(".mob-nav").slideToggle();
     });
 
-    $(".header__nav-item, .header__logo, .footer__logo").click(function (e) {
-        e.preventDefault();
-        // $(".mob-nav").slideUp();
-        $(".header__burger").removeClass("header__burger--active");
-        let headerH = $(".header").height();
-        elementClick = $(this).attr("href");
-        destination = $(elementClick).offset().top;
-        $(".header").toggleClass("header--active");
+    $(".header__nav-item, .hero__btn, .header__logo, .footer__logo").click(
+        function (e) {
+            e.preventDefault();
+            // $(".mob-nav").slideUp();
+            $(".header__burger").removeClass("header__burger--active");
+            let headerH = $(".header").height();
+            elementClick = $(this).attr("href");
+            destination = $(elementClick).offset().top;
+            $(".header").toggleClass("header--active");
 
-        $("body, html").animate(
-            {
-                scrollTop: destination - headerH - 40,
-            },
-            800
-        );
-    });
+            $("body, html").animate(
+                {
+                    scrollTop: destination - headerH - 40,
+                },
+                800
+            );
+        }
+    );
 
     // $(".modal-form").on("submit", function (e) {
     //     e.preventDefault();
@@ -135,4 +138,54 @@ $(document).ready(function () {
     //         },
     //     });
     // });
+
+    //счетчик товаров
+    let productCount;
+    $(".plus").on("click", function (e) {
+        e.preventDefault();
+        let inputField = $(".modal-product__count-filed");
+
+        let sum = parseInt(
+            $(".modal-product__item--sum")
+                .find(".modal-product__item-val")
+                .attr("data-val")
+        );
+
+        let step = 1;
+        productCount = parseInt(inputField.val());
+        productCount += step;
+        let total = sum * productCount;
+        console.log(total);
+        $(".modal-product__item--sum")
+            .find(".modal-product__item-val span")
+            .text(total);
+        inputField.val(productCount);
+    });
+
+    $(".minus").on("click", function (e) {
+        e.preventDefault();
+        let inputField = $(".modal-product__count-filed");
+        let sum = parseInt(
+            $(".modal-product__item--sum")
+                .find(".modal-product__item-val")
+                .attr("data-val")
+        );
+
+        let step = 1;
+        let minVal = 1;
+        productCount = parseInt(inputField.val());
+        productCount -= step;
+        let total = sum * productCount;
+
+        $(".modal-product__item--sum")
+            .find(".modal-product__item-val span")
+            .text(total);
+        if (productCount < minVal) {
+            productCount = minVal;
+            $(".modal-product__item--sum")
+                .find(".modal-product__item-val span")
+                .text(sum);
+        }
+        inputField.val(productCount);
+    });
 });
